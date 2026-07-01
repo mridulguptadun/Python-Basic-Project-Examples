@@ -1,0 +1,165 @@
+"""
+🔥 Project: Student Result Management System
+📁 Folder Structure
+Student_Result_System/
+│── student.py
+│── main.py
+"""
+
+student.py
+
+students = []
+
+def add_student():
+	rollNo = input("Enter Roll Number : ")
+	name = input("Enter Student Name : ")
+	english = int(input("Enter English Marks : "))
+	maths = int(input("Enter Maths Marks : "))
+	science = int(input("Enter Science marks : "))
+
+	total = maths + english + science
+	percentage = total / 3
+
+	if percentage >= 90:
+		grade = "A"
+
+	elif percentage >= 80:
+		grade = "B"
+
+	elif percentage >= 70:
+		grade = "C"
+
+	elif percentage >= 60:
+		grade = "D"
+
+	else:
+		grade = "Fail"
+
+	students.append([rollNo, name, english, maths, science, total, percentage, grade])
+
+	print("\nStudent Added Successfully")
+
+def show_student():
+	if len(students) == 0:
+		print("No Record Found")
+		return
+
+	print("\n-------Student Record-------")
+	for stu in students:
+		print("Roll No. : ", stu[0])
+		print("Name : ", stu[1])
+		print("English : ", stu[2])
+		print("Maths : ", stu[3])
+		print("Science : ", stu[4])
+		print("Total : ", stu[5])
+		print("Percentage : ", stu[6])
+		print("Grade : ", stu[7])
+		print("\n-------------------------")
+
+def search_student():
+	rollNo = input("Enter Student Roll No : ")
+	for stu in students:
+		if stu[0] == rollNo:
+			print("\nStudent Found")
+			print(stu)
+			return
+	print("Student Not Found")
+
+def update_marks():
+	rollNo = input("Enter Roll Number : ")
+	for stu in students:
+		if stu[0] == rollNo:
+			stu[2] = int(input("Enter English Marks : "))
+			stu[3] = int(input("Enter Maths Marks : "))
+			stu[4] = int(input("Enter Science Marks : "))
+
+			stu[5] = stu[2] + stu[3] + stu[4]
+			stu[6] = stu[5] / 3
+
+			if stu[6] >= 90:
+				stu[7] = "A"
+
+			elif stu[6] >= 80:
+				stu[7] = "B"
+
+			elif stu[6] >= 70:
+				stu[7] = "C"
+
+			elif stu[6] >= 60:
+				stu[7] = "D"
+
+			else:
+				stu[7] = "Fail"
+
+			print("Marks Updated Successfully")
+	print("Student not Found")
+
+def topper():
+	if len(students) == 0:
+		print("No Student Found")
+		return
+
+	top = students[0]
+	for stu in students:
+		if stu[6] > top[6]:
+			top = stu
+	print("\nTopper Details")
+	print("Roll No. : ",top[0])
+	print("Name : ",top[1])
+	print("Percentage : ", round(top[6], 2))
+	print("Grade : ",top[7])
+
+def delete_student():
+	rollNo = input("Enter Roll No : ")
+	for stu in students:
+		if stu[0] == rollNo:
+			students.remove(stu)
+			print("Student Deleted Successfully")
+			return
+	print("Student Not Found")
+
+
+main.py
+
+import student
+
+while True:
+
+	print("\n============ STUDENT RESULT MANAGEMENT =============")
+	print("1. Add Student")
+	print("2. Show Student")
+	print("3. Search Student")
+	print("4. Update Student")
+	print("5. Show Topper")
+	print("6. Delete Student")
+	print("7. Exit")
+
+	choice = int(input("\nEnter your Choice : "))
+
+	if choice == 1:
+		student.add_student()
+
+	elif choice == 2:
+		student.show_student()
+
+	elif choice == 3:
+		student.search_student()
+
+	elif choice == 4:
+		student.update_marks()
+
+	elif choice == 5:
+		student.topper()
+
+	elif choice == 6:
+		student.delete_student()
+
+	elif choice == 7:
+		print("Thank You.......")
+		break
+
+	else:
+		print("Invalid Choice")
+
+
+
