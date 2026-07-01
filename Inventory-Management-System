@@ -1,0 +1,131 @@
+Project: Inventory Management System
+Question
+
+Create an Inventory Management System using functions, modules (import), lists, and a menu-driven program.
+
+Create two files:
+
+inventory.py
+main.py
+Create the following functions in inventory.py:
+add_product() → Add a new product (Product ID, Product Name, Price, Quantity).
+show_products() → Display all products.
+search_product() → Search a product using Product ID.
+update_product() → Update the product's price and quantity.
+delete_product() → Delete a product.
+total_inventory_value() → Calculate and display the total value of all products (Price × Quantity).
+In main.py
+
+Import all functions and create the following menu:
+
+========== INVENTORY MANAGEMENT SYSTEM ==========
+
+1. Add Product
+2. Show Products
+3. Search Product
+4. Update Product
+5. Delete Product
+6. Total Inventory Value
+7. Exit
+
+
+inventory.py
+
+products = []
+
+def add_product():
+	pid = input("Enter Product ID : ")
+	name = input("Enter Product Name : ")
+	price = float(input("Enter Product Price : "))
+	qyt = int(input("Enter Quantity : "))
+	products.append([pid, name, price, qyt])
+	print("Product Added Successfully")
+
+def show_products():
+	if len(products) == 0:
+		print("No Product Found")
+		return
+
+	for pro in products:
+		print("_" * 30)
+		print("ID       :",pro[0])
+		print("Name     :",pro[1])
+		print("Price    :",pro[2])
+		print("Quantity :",pro[3])
+
+def search_product():
+	pid = input("Enter Product ID : ")
+	for pro in products:
+		if pro[0] == pid:
+			print("Product Found")
+			print(pro)
+			return
+	print("Product Not Found")
+
+def update_product():
+	pid = input("Enter Product ID : ")
+	for pro in products:
+		if pro[0] == pid:
+			pro[2] = float(input("Enter New Price : "))
+			pro[3] = int(input("Enter New Quantity : "))
+			print("Product Updated Successfully")
+			return
+	print("Product Not Found")
+
+def delete_product():
+	pid = input("Enter Product ID : ")
+	for pro in products:
+		if pro[0] == pid:
+			products.remove(pro)
+			print("Product Deleted Successfully")
+			return
+	print("Product not Found : ")
+
+
+def total_inventory_value():
+	total = 0
+	for pro in products:
+		total = total + (pro[2] * pro[3])
+	print("Total Inventory Value = ", total)
+
+main.py
+
+import inventory
+
+while True:
+	print("\n========== INVENTORY MANAGEMENT SYSTEM ==========")
+	print("1. Add Product")
+	print("2. Show Products")
+	print("3. Search Products")
+	print("4. Update product")
+	print("5. Delete product")
+	print("6. Total Inventory Value")
+	print("7. Exit")
+	print("=" * 20)
+
+	choice = int(input("Enter Your Choice : "))
+
+	if choice == 1:
+		inventory.add_product()
+
+	elif choice == 2:
+		inventory.show_products()
+
+	elif choice == 3:
+		inventory.search_product()
+
+	elif choice == 4:
+		inventory.update_product()
+
+	elif choice == 5:
+		inventory.delete_product()
+
+	elif choice == 6:
+		inventory.total_inventory_value()
+
+	elif choice == 7:
+		print("Thanks For Visit")
+		break
+
+	else:
+		print("Sorry you Have Enter Wrong Choice")
