@@ -1,0 +1,170 @@
+Project: Bank Management System
+Question
+
+Create a Bank Management System using functions, modules (import), lists, and a menu-driven program.
+
+Create two files:
+
+bank.py
+main.py
+Create the following functions in bank.py
+create_account()
+show_accounts()
+search_account()
+deposit()
+withdraw()
+transfer_money()
+delete_account()
+Create the following menu in main.py
+========== BANK MANAGEMENT SYSTEM ==========
+
+1. Create Account
+2. Show Accounts
+3. Search Account
+4. Deposit Money
+5. Withdraw Money
+6. Transfer Money
+7. Delete Account
+8. Exit
+
+bank.py
+
+accounts = []
+
+def create_account():
+	acc_no = input("Enter Account Number : ")
+	name = input("Enter Customer Name : ")
+	balance = float(input("Enter Opening Balance : "))
+
+	accounts.append([acc_no, name, balance])
+
+	print("Account Created Successfully")
+
+def show_accounts():
+	if len(accounts) == 0:
+		print("No Account Found")
+		return
+	print("\n------ Account List ------")
+	for acc in accounts:
+		print("Account No. :",acc[0])
+		print("name :",acc[1])
+		print("Balance :",acc[2])
+		print("_" * 20)
+
+def search_account():
+	acc_no = input("Enter Account No. : ")
+	for acc in accounts:
+		if acc[0] == acc_no:
+			print("Account Found")
+			print(acc)
+			return
+	print("Account Not Found")
+
+def deposit():
+	acc_no = input("Enter Account No. : ")
+	for acc in accounts:
+		if acc[0] == acc_no:
+			amount = float(input("Enter Desposit Amount : "))
+			acc[2] += amount
+			print("Amount Deposited Successfully")
+			print("Your Current Balance : ", acc[2])
+			return
+	print("Account Not Found")
+
+def withdraw():
+	acc_no = input("Enter Account No. : ")
+	for acc in accounts:
+		if acc[0] == acc_no:
+			amount = float(input("Enter Withdraw Amount : "))
+			if amount > acc[2]:
+				print("Insufficient Balance")
+			else:
+				acc[2] -= amount
+				print("Withdrawal Successfully")
+				print("Current Balance ",acc[2])
+				return
+	print("Account Not Found")
+
+def transfer_money():
+	sender = input("Enter Sender Account Number : ")
+	receiver = input("Enter Receiver Account Number : ")
+	amount = float(input("Enter Amount :"))
+	snder_acc = None
+	receiver_acc = None
+
+	for acc in accounts:
+		if acc[0] == sender:
+			snder_acc = acc
+
+		if acc[0] == receiver:
+			receiver_acc = acc
+
+	if snder_acc is None or receiver_acc is None:
+		print("Account Not Found")
+		return
+
+	if snder_acc[2] < amount:
+		print("Insufficient Balance")
+		return
+
+	snder_acc[2] -= amount
+	receiver_acc[2] += amount
+
+	print("Money Transfer Successfully")
+
+def delete_account():
+	acc_no = input("Enter Account Number : ")
+	for acc in accounts:
+		if acc[0] == acc_no:
+			accounts.remove(acc)
+			print("Account Deleted Successfully")
+			return
+	print("Account Not Found")
+
+
+main.py
+
+import bank
+
+while True:
+	print("\n========== BANK MANAGEMENT SYSTEM ==========")
+	print("1. Create Account")
+	print("2. Show Account")
+	print("3. Search Account")
+	print("4. Deposit Money")
+	print("5. Withdraw Money")
+	print("6. Transfer Money")
+	print("7. Delete Account")
+	print("8. Exit")
+	print("=" * 10)
+
+	choice = int(input("Enter Your Choice : "))
+
+	if choice == 1:
+		bank.create_account()
+
+	elif choice == 2:
+		bank.show_accounts()
+
+	elif choice == 3:
+		bank.search_account()
+
+	elif choice == 4:
+		bank.deposit()
+
+	elif choice == 5:
+		bank.withdraw()
+
+	elif choice == 6:
+		bank.transfer_money()
+
+	elif choice == 7:
+		bank.delete_account()
+
+	elif choice == 8:
+		print("Thanks.....")
+		break		
+
+	else:
+		print("Wrong Choice")
+
